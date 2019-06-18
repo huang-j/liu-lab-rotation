@@ -1,0 +1,56 @@
+Notes on Single Cell ATAC-seq in combination with scRNA-seq
+===========================================================
+
+test..
+
+scATAC-seq
+----------
+Peaks at open regions in between histones.
+We can use this to estimate the genes being expressed.
+Because we only have two possible transcripts for each chromosome, peaks for each region per-cell could be classified into the following:
+	0 1 2
+	This would likely need to be adjusted according to the length of the region.
+Another variable to possibly access would be the length of the region that is open in the chromatin,.
+
+Because we cannot run the same cell through both we may not need to address the issue with ensuring that there's at least the cell has the gene open vs just the CRE/promotor regions.
+	- someone did do this apparently but not through the 10x platform.
+
+
+Questions
+=========
+Ways to inter-relate single cells with cells of a similar type from different chemistry
+	- Correlation between larger peaks with gene expression
+		- Need to figure out how to do this without a pairwise comparison
+	- Rather than use single cells, do clusters and correlate clusters to clusters.
+	- Can use this to possibly define some signature at an expression/chromatin level.
+Does the single nuclei isolation prefer specific types of cells? Could create a bias.
+How does scATAC-seq correlate to molecular classifications in comparison to scRNA-seq.
+	- open regions vs levels of RNA content. related to correlation between larger peaks with gene expression
+
+Single Time point:
+------------------
+	prognosis of some indicators given from scRNA and scATAC-seq for given treatment.
+		In general how does the the heterogeneity affect response to therapy.
+		For integrating the two, how does chromatin related activity affect patient's state
+	Discerning if there's a difference in chromatin related activity for different stages of cancer.
+		impact?
+
+Longitudinal:
+-------------
+	How does chemotherapy affect the heterogeneity of the samples and how is that related to response.
+		Time is an interesting point as there likely will be a distinct difference between patients who progress and those who don't simply because of resistant populations.
+	How does chemotherapy affect chromatin at a single cell.
+		probably something cursory has been done
+	If we can define a metric from combining RNA and ATAC seq to measure some sort of activity, how does that change with response to therapy. Is it predictive?
+
+
+
+
+
+Side Questions
+==============
+
+Multiple Myeloma
+----------------
+could we use B-cell repertoires to describe evolution of the plasma cells antibodies and see what that might show? Is there a progression in antibody morphology that might be predictive of cell phenotype?
+	- Somebody may have done this already. to look up later.
