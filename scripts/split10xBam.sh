@@ -33,5 +33,6 @@ header=$(samtools view -H $b)
 samtools view $b | awk -v dir="$o" '{ if($17 ~ /CB/) split($17,barcode,":"); else if($19 ~ /CB/) split($19, barcodes,":"); if(barcodes[3] != "") print >> dir"/"barcodes[3]".sam"  }'
 
 for f in  $(find $o -type f | grep 'sam$'); do
-echo -e "$header\n$(cat $f)" > $f
+#echo -e "$header\n$(cat $f)" > $f
+	python ~/scripts/attachHeaderSort.py -I $f -O $o --header $header
 done
