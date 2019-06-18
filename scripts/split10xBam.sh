@@ -28,5 +28,10 @@ fi
 header=$(samtools view -H $b)
 
 ## awk '{if(/^@/) {print $0} else {if($17 ~ /XI/) split($17,barcodes,":"); else if($16 ~ /XI/) split($16,barcodes,":"); if(barcodes[3] >=2) print }}
+# samtools view $b | awk -v dir="$o" '{ if($17 ~ /CB/) split($17,barcode,":"); else if($19 ~ /CB/) split($19, barcodes,":"); if(barcodes[3] != "") print dir  }'
 
-samtools view $b | awk '{ if($17 ~ /CB/) split($17,barcode,":"); else if($19 ~ /CB/) split($19, barcodes,":"); if(barcodes[3] != "") print >> barcodes[3]".sam"  }'
+samtools view $b | awk -v dir="$o" '{ if($17 ~ /CB/) split($17,barcode,":"); else if($19 ~ /CB/) split($19, barcodes,":"); if(barcodes[3] != "") print >> dir"/"barcodes[3]".sam"  }'
+
+for f in  $(find $o -type f | grep 'sam$'); do
+echo -e "$header\n$(cat $f)" > $f
+done
