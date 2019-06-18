@@ -1,4 +1,4 @@
-!/bin/bash
+#!/bin/bash
 
 # Parses through 10x bam file, finds barcode headers and writes them to a sam file.
 
