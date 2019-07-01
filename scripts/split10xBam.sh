@@ -25,14 +25,16 @@ if [ -z "${o}" ]; then
     usage
 fi
 
+echo "making header sam file"
 samtools view -H $b > ${b%.bam}_header.sam
 
 ## awk '{if(/^@/) {print $0} else {if($17 ~ /XI/) split($17,barcodes,":"); else if($16 ~ /XI/) split($16,barcodes,":"); if(barcodes[3] >=2) print }}
 # samtools view $b | awk -v dir="$o" '{ if($17 ~ /CB/) split($17,barcode,":"); else if($19 ~ /CB/) split($19, barcodes,":"); if(barcodes[3] != "") print dir  }'
 
-samtools view -b $b | awk -v dir="$o" '{ if($17 ~ /CB/) split($17,barcode,":"); else if($19 ~ /CB/) split($19, barcodes,":"); if(barcodes[3] != "") print >> dir"/"barcodes[3]".bam"  }'
+echo "writing to bam files"
+samtools view $b | awk -v dir="$o" '{ if($17 ~ /CB/) split($17,barcode,":"); else if($19 ~ /CB/) split($19, barcodes,":"); if(barcodes[3] != "") print >> dir"/"barcodes[3]".sam"  }'
 
-for f in  $(find $o -type f | grep 'bam$'); do
-#echo -e "$header\n$(cat $f)" > $f
-	python ~/scripts/attachHeaderSort.py -I $f -O $o --header ${b%.bam}_head.sam
+echo "submitting reheader jobs"
+for f in  $(find $o -type f | grep 'sam$'); do
+	python ~/liu-lab-rotation/scripts/attachHeaderSort.py -I $f -O $o --header ${b%.bam}_header.sam
 done
