@@ -21,7 +21,7 @@ if __name__ == "__main__":
 	with open("/N/u/jonhuang/Carbonate/liu-lab-rotation/jobs/" + samplename + "_split.script", 'w+') as script:
 		script.write("#!/bin/bash\n")
 		script.write("#PBS -k o\n")
-		script.write("#PBS -l nodes=1:ppn=1,mem=1024mb,walltime=1:00:00\n")
+		script.write("#PBS -l nodes=1:ppn=1,walltime=2:00:00\n")
 		script.write("#PBS -M jonhuang@iu.edu\n")
 		script.write("#PBS -m ab\n")
 		script.write("#PBS -N " + samplename + "_headandsort\n")

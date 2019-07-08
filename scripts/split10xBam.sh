@@ -32,9 +32,11 @@ samtools view -H $b > ${b%.bam}_header.sam
 # samtools view $b | awk -v dir="$o" '{ if($17 ~ /CB/) split($17,barcode,":"); else if($19 ~ /CB/) split($19, barcodes,":"); if(barcodes[3] != "") print dir  }'
 
 echo "writing to bam files"
-samtools view $b | awk -v dir="$o" '{ if($17 ~ /CB/) split($17,barcode,":"); else if($19 ~ /CB/) split($19, barcodes,":"); if(barcodes[3] != "") print >> dir"/"barcodes[3]".sam"  }'
+samtools view $b | awk -v dir="$o" '{ if($17 ~ /CB/) split($17,barcode,":"); else if($19 ~ /CB/) split($19, barcodes,":"); if(barcodes[3] != "") print >> dir"/"barcodes[3]".sam"; else print >> dir"/test_leftovers.sam"  }'
 
-echo "submitting reheader jobs"
-for f in  $(find $o -type f | grep 'sam$'); do
-	python ~/liu-lab-rotation/scripts/attachHeaderSort.py -I $f -O $o --header ${b%.bam}_header.sam
-done
+# echo "submitting reheader jobs"
+# find $o -type f | grep 'sam$' > files.list
+# for f in  $(find $o -type f | grep 'sam$'); do
+# 	echo $f
+# 	python ~/liu-lab-rotation/scripts/attachHeaderSort.py -I $f -O $o --header ${b%.bam}_header.sam
+# done
